@@ -90,6 +90,26 @@
 				<span class="h2" id="divres"></span>
 			</div>
 		</div>
+		<hr>
+		<div class="row">
+			<div class="col-3">
+				<input class="form-control" id="pow1">
+			</div>
+			<div class="col-1">
+				<div class="w-100 text-center">
+					pow
+				</div>
+			</div>
+			<div class="col-3">
+				<input class="form-control" id="pow2">
+			</div>
+			<div class="col-2">
+				<button type="button" class="btn btn-primary w-100" onclick="pow()">POW</button>
+			</div>
+			<div class="col-3">
+				<span class="h2" id="powres"></span>
+			</div>
+		</div>
 
 	</div>
 
@@ -159,6 +179,24 @@
 		}
 		let xhr = new XMLHttpRequest()
 		xhr.open('POST', '/div', true)
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				res.innerHTML = xhr.responseText
+			}
+		};
+		xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+		xhr.send(JSON.stringify(params))
+	}
+	function pow() {
+		var x = document.getElementById('pow1').value
+		var y = document.getElementById('pow2').value
+		var res = document.getElementById('powres')
+		var params = {
+			"num1": x,
+			"num2": y
+		}
+		let xhr = new XMLHttpRequest()
+		xhr.open('POST', '/pow', true)
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				res.innerHTML = xhr.responseText
